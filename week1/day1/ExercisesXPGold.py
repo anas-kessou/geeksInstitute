@@ -1,3 +1,9 @@
+import random
+
+
+
+
+
 #Exercise 1: What is the Season?
 month = int(input("Enter a month number (1-12): "))
 if month in [12, 1, 2]:
@@ -63,7 +69,7 @@ print(f"The greatest number is : {greatest_number}")
 
 #Exercise 6: Random number
 
-import random
+
 num= int(input("Enter a number between 1 and 9 (include): "))
 random_num= random.randint(1,9)
 
@@ -74,7 +80,7 @@ else:
 
 
 #bonus1
-import random
+
 while True:
     num= int(input("Enter a number between 1 and 9 (include): "))
     random_num= random.randint(1,9)
