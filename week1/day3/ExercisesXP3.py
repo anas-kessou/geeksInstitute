@@ -28,7 +28,6 @@ print(f"The oldest cat is {oldest_cat(cat1, cat2, cat3)[0]}, and is {oldest_cat(
 
 
 
-
 #Exercise 2 : Dogs
 class Dog:
     def __init__(self, name, height):
