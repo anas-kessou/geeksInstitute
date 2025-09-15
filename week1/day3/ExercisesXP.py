@@ -20,10 +20,9 @@ def oldest_cat(cat1, cat2, cat3):
         cat_name = cat1.name
     elif cat == cat2.age:
         cat_name = cat2.name
-    else:
+    else: 
         cat_name = cat3.name
     return cat_name, cat
-
 print(f"The oldest cat is {oldest_cat(cat1, cat2, cat3)[0]}, and is {oldest_cat(cat1, cat2, cat3)[1]} years old.")
 
 
