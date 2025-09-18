@@ -2,7 +2,6 @@ import ExercisesXP
 
 #Exercise 1 : Pets
 
-"""
 class Pets():
     def __init__(self, animals):
         self.animals = animals
@@ -145,7 +144,38 @@ print(a.is_18('Michael'))
 print(a.is_18('John'))
 
 
-"""
 
 
 #Exercise 5 : TheIncredibles Family
+#=================================
+#*************************
+#================================
+
+# class TheIncredibles(Family):
+#     def use_power(self, name):
+#         for member in self.members:
+#             if member['name'] == name:
+#                 if self.is_18(name):
+#                     print(f"{name}'s power: {member['power']}")
+#                 else:
+#                     print(f"{name} is not over 18 years old and cannot use their power!")
+#                 return
+#         print(f"No member named {name} found.")
+
+#     def incredible_presentation(self):
+#         print("\n*Here is our powerful family*")
+#         super().family_presentation()
+# members = [
+#     {'name':'Michael','age':35,'gender':'Male','is_child':False,'power': 'fly','incredible_name':'MikeFly'},
+#     {'name':'Sarah','age':32,'gender':'Female','is_child':False,'power': 'read minds','incredible_name':'SuperWoman'}
+# ]
+
+# the_incredibles = TheIncredibles(last_name="Incredibles", members=members)
+# the_incredibles.incredible_presentation()
+# the_incredibles.born(name="Baby Jack", age=0, gender="Male", is_child=True, power="Unknown Power", incredible_name="BabyJack")
+# the_incredibles.incredible_presentation()
+# the_incredibles.use_power("Michael")  
+# the_incredibles.use_power("Baby Jack") 
+#================================
+#*************************
+#================================
