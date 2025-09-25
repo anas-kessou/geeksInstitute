@@ -1,4 +1,4 @@
-
+CREATE DATABASE public;
 
 -- Items table
 CREATE TABLE items (
