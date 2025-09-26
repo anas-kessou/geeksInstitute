@@ -1,6 +1,3 @@
---==================
---PART 1
---==================
 
 CREATE TABLE Menu_Items(
     item_id SERIAL PRIMARY KEY,
