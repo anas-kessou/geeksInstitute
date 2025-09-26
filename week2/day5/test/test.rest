@@ -1,0 +1,41 @@
+
+
+
+#### get menu
+GET http://127.0.0.1:5000/menu
+
+#### get item by id
+GET http://127.0.0.1:5000/menu/1
+
+
+#### add item
+POST http://127.0.0.1:5000/menu/add
+Content-Type: application/json
+
+{
+    "item_name": "pasta",
+    "item_price": 26
+}
+
+
+#### delete item
+DELETE http://127.0.0.1:5000/menu/delete/1
+
+##### update item
+PUT http://127.0.0.1:5000/menu/update/2
+Content-Type: application/json
+
+{
+    "item_name": "pizza",
+    "item_price": 26
+}
+
+
+##### show item
+GET http://127.0.0.1:5000/menu/1
+
+##### show all items
+GET http://127.0.0.1:5000/menu
+
+
+
