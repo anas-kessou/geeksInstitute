@@ -84,36 +84,39 @@ A complete, production-ready Student Management System with role-based access co
 ## 🚀 Setup Instructions
 
 ### Prerequisites
-- Python 3.8+
-- Node.js 16+
-- PostgreSQL 12+
+- **uv** (Python package manager) - [Install uv](https://docs.astral.sh/uv/getting-started/installation/)
+- **Node.js 16+**
+- **PostgreSQL 12+**
 
-### Backend Setup
+### Quick Start (Recommended)
+
+```bash
+./start.sh  # Linux/Mac
+start.bat   # Windows
+```
+
+### Manual Setup
+
+#### Backend Setup
 
 1. **Navigate to backend directory:**
    ```bash
    cd backend
    ```
 
-2. **Create virtual environment:**
+2. **Install dependencies with uv:**
    ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   uv pip install -r requirements.txt
    ```
 
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Create PostgreSQL database:**
+3. **Create PostgreSQL database:**
    ```bash
    psql -U postgres
    CREATE DATABASE sms_db;
    \q
    ```
 
-5. **Configure environment variables:**
+4. **Configure environment variables:**
    ```bash
    cp .env.example .env
    ```
@@ -124,19 +127,19 @@ A complete, production-ready Student Management System with role-based access co
    JWT_SECRET_KEY=your-secret-key-here
    ```
 
-6. **Initialize database and seed data:**
+5. **Initialize database and seed data:**
    ```bash
-   python seed.py
+   uv run seed.py
    ```
 
-7. **Run the Flask server:**
+6. **Run the Flask server:**
    ```bash
-   python app.py
+   uv run app.py
    ```
    
    Backend will run on `http://localhost:5000`
 
-### Frontend Setup
+#### Frontend Setup
 
 1. **Navigate to frontend directory:**
    ```bash
@@ -160,7 +163,7 @@ A complete, production-ready Student Management System with role-based access co
 
 4. **Run the React development server:**
    ```bash
-   npm start
+   npm run dev
    ```
    
    Frontend will run on `http://localhost:3000`

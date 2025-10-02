@@ -14,10 +14,10 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Check if Python is installed
-if ! command -v python3 &> /dev/null; then
-    echo -e "${RED}Error: Python 3 is not installed${NC}"
-    echo "Please install Python 3.8 or higher"
+# Check if uv is installed
+if ! command -v uv &> /dev/null; then
+    echo -e "${RED}Error: uv is not installed${NC}"
+    echo "Please install uv: curl -LsSf https://astral.sh/uv/install.sh | sh"
     exit 1
 fi
 
@@ -45,19 +45,9 @@ echo "=========================================="
 
 cd backend
 
-# Create virtual environment if it doesn't exist
-if [ ! -d "venv" ]; then
-    echo "Creating Python virtual environment..."
-    python3 -m venv venv
-fi
-
-# Activate virtual environment
-echo "Activating virtual environment..."
-source venv/bin/activate
-
-# Install dependencies
-echo "Installing Python dependencies..."
-pip install -q -r requirements.txt
+# Install dependencies with uv
+echo "Installing Python dependencies with uv..."
+uv pip install -r requirements.txt
 
 # Check if .env exists
 if [ ! -f ".env" ]; then
@@ -73,7 +63,7 @@ read -p "Do you want to seed the database with test data? (y/n): " -n 1 -r
 echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Seeding database..."
-    python seed.py
+    uv run seed.py
 fi
 
 echo ""
@@ -114,8 +104,7 @@ echo ""
 # Start backend in background
 cd ../backend
 echo "Starting Flask backend on http://localhost:5000..."
-source venv/bin/activate
-python app.py &
+uv run app.py &
 BACKEND_PID=$!
 
 # Wait for backend to start
@@ -141,7 +130,7 @@ echo -e "${YELLOW}Press Ctrl+C to stop both servers${NC}"
 echo ""
 
 # Start frontend (this will block)
-npm start
+npm run dev
 
 # Cleanup: Kill backend when frontend stops
 kill $BACKEND_PID 2>/dev/null

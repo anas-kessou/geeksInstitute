@@ -6,11 +6,11 @@ echo Student Management System - Quick Start
 echo ==========================================
 echo.
 
-REM Check if Python is installed
-python --version >nul 2>&1
+REM Check if uv is installed
+uv --version >nul 2>&1
 if errorlevel 1 (
-    echo Error: Python is not installed
-    echo Please install Python 3.8 or higher
+    echo Error: uv is not installed
+    echo Please install uv: https://docs.astral.sh/uv/getting-started/installation/
     pause
     exit /b 1
 )
@@ -34,19 +34,9 @@ echo ==========================================
 
 cd backend
 
-REM Create virtual environment if it doesn't exist
-if not exist "venv" (
-    echo Creating Python virtual environment...
-    python -m venv venv
-)
-
-REM Activate virtual environment
-echo Activating virtual environment...
-call venv\Scripts\activate.bat
-
-REM Install dependencies
-echo Installing Python dependencies...
-pip install -q -r requirements.txt
+REM Install dependencies with uv
+echo Installing Python dependencies with uv...
+uv pip install -r requirements.txt
 
 REM Check if .env exists
 if not exist ".env" (
@@ -61,7 +51,7 @@ echo.
 set /p SEED="Do you want to seed the database with test data? (y/n): "
 if /i "%SEED%"=="y" (
     echo Seeding database...
-    python seed.py
+    uv run seed.py
 )
 
 echo.
@@ -101,7 +91,7 @@ echo.
 
 REM Start backend in new window
 cd ..\backend
-start "SMS Backend" cmd /k "venv\Scripts\activate.bat && python app.py"
+start "SMS Backend" cmd /k "uv run app.py"
 
 REM Wait for backend to start
 timeout /t 3 /nobreak >nul
@@ -125,4 +115,4 @@ echo.
 echo Close both windows to stop the servers
 echo.
 
-call npm start
+call npm run dev
