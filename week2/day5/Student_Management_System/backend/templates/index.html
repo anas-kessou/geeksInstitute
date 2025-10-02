@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - School Management System{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4 mb-3">
+            <i class="bi bi-speedometer2 text-primary"></i>
+            Dashboard
+        </h1>
+        <p class="lead text-muted">Welcome to the School Management System</p>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row g-4 mb-5">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-uppercase mb-0">Total Users</h6>
+                        <h2 class="mb-0">{{ stats.total_users or 0 }}</h2>
+                    </div>
+                    <i class="bi bi-people fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-white bg-success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-uppercase mb-0">Total Courses</h6>
+                        <h2 class="mb-0">{{ stats.total_courses or 0 }}</h2>
+                    </div>
+                    <i class="bi bi-book fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-white bg-info">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-uppercase mb-0">Enrollments</h6>
+                        <h2 class="mb-0">{{ stats.total_enrollments or 0 }}</h2>
+                    </div>
+                    <i class="bi bi-clipboard-check fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card text-white bg-warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="card-title text-uppercase mb-0">Total Grades</h6>
+                        <h2 class="mb-0">{{ stats.total_grades or 0 }}</h2>
+                    </div>
+                    <i class="bi bi-award fs-1 opacity-50"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <h3 class="mb-3">Quick Actions</h3>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-person-plus fs-1 text-primary mb-3"></i>
+                <h5 class="card-title">Manage Users</h5>
+                <p class="card-text text-muted">Add, edit, or view users in the system</p>
+                <a href="/users" class="btn btn-primary">
+                    <i class="bi bi-arrow-right me-1"></i>Go to Users
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-book-half fs-1 text-success mb-3"></i>
+                <h5 class="card-title">Manage Courses</h5>
+                <p class="card-text text-muted">Create and manage course offerings</p>
+                <a href="/courses" class="btn btn-success">
+                    <i class="bi bi-arrow-right me-1"></i>Go to Courses
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="bi bi-graph-up-arrow fs-1 text-info mb-3"></i>
+                <h5 class="card-title">View Statistics</h5>
+                <p class="card-text text-muted">Analyze performance and trends</p>
+                <a href="/stats" class="btn btn-info text-white">
+                    <i class="bi bi-arrow-right me-1"></i>View Stats
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h3 class="mb-3">Recent Activity</h3>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Description</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if recent_activities %}
+                                {% for activity in recent_activities %}
+                                <tr>
+                                    <td>
+                                        <span class="badge bg-{{ activity.type_color }}">
+                                            {{ activity.type }}
+                                        </span>
+                                    </td>
+                                    <td>{{ activity.description }}</td>
+                                    <td>{{ activity.date }}</td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">No recent activity</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

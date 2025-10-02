@@ -13,7 +13,7 @@ console.log(people); // ["Mary", "Devon", "Jason"]
 
 
 //Write code to add your name to the end of the people array.
-people.push("Anas"); // use your name
+people.push("Anas"); 
 console.log(people); // ["Mary", "Devon", "Jason", "Anas"]
 
 

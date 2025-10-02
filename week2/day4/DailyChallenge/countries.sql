@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS countries
 CREATE TABLE countries (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -6,3 +7,4 @@ CREATE TABLE countries (
     subregion VARCHAR(100),
     population INT
 );
+
