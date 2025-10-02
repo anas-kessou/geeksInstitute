@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ entity_type }} - School Management System{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card">
+            <div class="card-header bg-warning">
+                <h4 class="mb-0">
+                    <i class="bi bi-pencil-square me-2"></i>
+                    Edit {{ entity_type }}
+                </h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ action_url }}">
+                    {% if entity_type == 'User' %}
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ entity.email }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="username" name="username" value="{{ entity.username }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">New Password (leave blank to keep current)</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <small class="form-text text-muted">Only fill this if you want to change the password</small>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label">First Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" value="{{ entity.first_name }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label">Last Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" value="{{ entity.last_name }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
+                            <select class="form-select" id="role" name="role" required>
+                                <option value="director" {% if entity.role == 'director' %}selected{% endif %}>Director</option>
+                                <option value="teacher" {% if entity.role == 'teacher' %}selected{% endif %}>Teacher</option>
+                                <option value="student" {% if entity.role == 'student' %}selected{% endif %}>Student</option>
+                            </select>
+                        </div>
+                    
+                    {% elif entity_type == 'Course' %}
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Course Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ entity.name }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="code" class="form-label">Course Code <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="code" name="code" value="{{ entity.code }}" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3">{{ entity.description }}</textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="teacher_id" class="form-label">Teacher <span class="text-danger">*</span></label>
+                            <select class="form-select" id="teacher_id" name="teacher_id" required>
+                                {% for teacher in teachers %}
+                                    <option value="{{ teacher.id }}" {% if teacher.id == entity.teacher_id %}selected{% endif %}>
+                                        {{ teacher.first_name }} {{ teacher.last_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="grade_level" class="form-label">Grade Level</label>
+                            <input type="text" class="form-control" id="grade_level" name="grade_level" value="{{ entity.grade_level }}" placeholder="e.g., Grade 10">
+                        </div>
+                    
+                    {% elif entity_type == 'Grade' %}
+                        <div class="mb-3">
+                            <label for="student_id" class="form-label">Student <span class="text-danger">*</span></label>
+                            <select class="form-select" id="student_id" name="student_id" required>
+                                {% for student in students %}
+                                    <option value="{{ student.id }}" {% if student.id == entity.student_id %}selected{% endif %}>
+                                        {{ student.first_name }} {{ student.last_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="course_id" class="form-label">Course <span class="text-danger">*</span></label>
+                            <select class="form-select" id="course_id" name="course_id" required>
+                                {% for course in courses %}
+                                    <option value="{{ course.id }}" {% if course.id == entity.course_id %}selected{% endif %}>
+                                        {{ course.name }} ({{ course.code }})
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="assignment_name" class="form-label">Assignment Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="assignment_name" name="assignment_name" value="{{ entity.assignment_name }}" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="score" class="form-label">Score <span class="text-danger">*</span></label>
+                                    <input type="number" step="0.01" class="form-control" id="score" name="score" value="{{ entity.score }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="max_score" class="form-label">Max Score <span class="text-danger">*</span></label>
+                                    <input type="number" step="0.01" class="form-control" id="max_score" name="max_score" value="{{ entity.max_score }}" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="comments" class="form-label">Comments</label>
+                            <textarea class="form-control" id="comments" name="comments" rows="3">{{ entity.comments }}</textarea>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{{ back_url }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left me-1"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-check-circle me-1"></i>Update {{ entity_type }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Grades Section for Students -->
+        {% if entity_type == 'User' and entity.role == 'student' %}
+        <div class="card mt-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-award me-2"></i>
+                    Student Grades
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- Add Grade Form -->
+                <div class="border rounded p-3 mb-4 bg-light">
+                    <h6 class="mb-3">
+                        <i class="bi bi-plus-circle me-2"></i>Add New Grade
+                    </h6>
+                    <form method="POST" action="/users/{{ entity.id }}/add-grade">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="course_id" class="form-label">Course <span class="text-danger">*</span></label>
+                                <select class="form-select" id="course_id" name="course_id" required>
+                                    <option value="">Select Course</option>
+                                    {% for course in courses %}
+                                        <option value="{{ course.id }}">{{ course.name }} ({{ course.code }})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="score" class="form-label">Score <span class="text-danger">*</span></label>
+                                <input type="number" step="0.01" class="form-control" id="score" name="score" required>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label for="max_score" class="form-label">Max Score <span class="text-danger">*</span></label>
+                                <input type="number" step="0.01" class="form-control" id="max_score" name="max_score" value="100" required>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="form-label">&nbsp;</label>
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="bi bi-plus-circle me-1"></i>Add
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label for="comments" class="form-label">Comments (Optional)</label>
+                                <input type="text" class="form-control" id="comments" name="comments" placeholder="Add any comments here...">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Existing Grades -->
+                <h6 class="mb-3">Existing Grades</h6>
+                {% if grades %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Assignment</th>
+                                    <th>Score</th>
+                                    <th>Percentage</th>
+                                    <th>Comments</th>
+                                    <th>Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for grade in grades %}
+                                <tr>
+                                    <td>{{ grade.course.name }}</td>
+                                    <td>{{ grade.assignment_name }}</td>
+                                    <td>{{ grade.score }} / {{ grade.max_score }}</td>
+                                    <td>
+                                        {% set percentage = (grade.score / grade.max_score * 100) | round(1) if grade.max_score > 0 else 0 %}
+                                        <span class="badge bg-{% if percentage >= 90 %}success{% elif percentage >= 70 %}warning{% else %}danger{% endif %}">
+                                            {{ percentage }}%
+                                        </span>
+                                    </td>
+                                    <td>{{ grade.comments or 'N/A' }}</td>
+                                    <td>{{ grade.created_at.strftime('%Y-%m-%d') if grade.created_at else 'N/A' }}</td>
+                                    <td>
+                                        <form method="POST" action="/grades/{{ grade.id }}/delete" style="display: inline;">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this grade?')">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No grades yet. Add a grade using the form above.</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -54,4 +54,3 @@ DELETE FROM new_film WHERE id = 2;
 --===============================
 --checking
 SELECT * FROM customer_review;
-

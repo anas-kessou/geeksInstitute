@@ -1,0 +1,313 @@
+{% extends "base.html" %}
+
+{% block title %}Statistics - School Management System{% endblock %}
+
+{% block extra_css %}
+<style>
+    .stat-card {
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .chart-container {
+        position: relative;
+        height: 300px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-4 mb-3">
+            <i class="bi bi-graph-up text-primary"></i>
+            Statistics & Analytics
+        </h1>
+        <p class="lead text-muted">Overview of system performance and metrics</p>
+    </div>
+</div>
+
+<!-- Overview Statistics -->
+<div class="row g-4 mb-5">
+    <div class="col-md-3">
+        <div class="card stat-card border-start border-primary border-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Total Students</h6>
+                        <h2 class="mb-0 text-primary">{{ stats.total_students or 0 }}</h2>
+                    </div>
+                    <i class="bi bi-people-fill fs-1 text-primary opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stat-card border-start border-success border-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Total Teachers</h6>
+                        <h2 class="mb-0 text-success">{{ stats.total_teachers or 0 }}</h2>
+                    </div>
+                    <i class="bi bi-person-badge-fill fs-1 text-success opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stat-card border-start border-info border-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Active Courses</h6>
+                        <h2 class="mb-0 text-info">{{ stats.total_courses or 0 }}</h2>
+                    </div>
+                    <i class="bi bi-book-fill fs-1 text-info opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stat-card border-start border-warning border-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted text-uppercase mb-1">Average Grade</h6>
+                        <h2 class="mb-0 text-warning">{{ stats.average_grade or 0 }}%</h2>
+                    </div>
+                    <i class="bi bi-award-fill fs-1 text-warning opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Statistics -->
+<div class="row g-4 mb-4">
+    <!-- Enrollment Statistics -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-clipboard-data me-2"></i>
+                    Enrollment Statistics
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th class="text-center">Students</th>
+                                <th class="text-center">Capacity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if enrollment_stats %}
+                                {% for course in enrollment_stats %}
+                                <tr>
+                                    <td>{{ course.name }}</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-primary">{{ course.student_count }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="progress" style="height: 20px;">
+                                            <div class="progress-bar" role="progressbar" 
+                                                 style="width: {{ course.capacity_percentage }}%"
+                                                 aria-valuenow="{{ course.capacity_percentage }}" 
+                                                 aria-valuemin="0" aria-valuemax="100">
+                                                {{ course.capacity_percentage }}%
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">No enrollment data available</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Grade Distribution -->
+    <div class="col-md-6">
+        <div class="card h-100">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-bar-chart me-2"></i>
+                    Grade Distribution
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>A (90-100%)</span>
+                        <span class="badge bg-success">{{ grade_distribution.A or 0 }}</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 25px;">
+                        <div class="progress-bar bg-success" style="width: {{ grade_distribution.A_percent or 0 }}%">
+                            {{ grade_distribution.A_percent or 0 }}%
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>B (80-89%)</span>
+                        <span class="badge bg-info">{{ grade_distribution.B or 0 }}</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 25px;">
+                        <div class="progress-bar bg-info" style="width: {{ grade_distribution.B_percent or 0 }}%">
+                            {{ grade_distribution.B_percent or 0 }}%
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>C (70-79%)</span>
+                        <span class="badge bg-warning">{{ grade_distribution.C or 0 }}</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 25px;">
+                        <div class="progress-bar bg-warning" style="width: {{ grade_distribution.C_percent or 0 }}%">
+                            {{ grade_distribution.C_percent or 0 }}%
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>D (60-69%)</span>
+                        <span class="badge bg-danger">{{ grade_distribution.D or 0 }}</span>
+                    </div>
+                    <div class="progress mb-3" style="height: 25px;">
+                        <div class="progress-bar bg-danger" style="width: {{ grade_distribution.D_percent or 0 }}%">
+                            {{ grade_distribution.D_percent or 0 }}%
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span>F (Below 60%)</span>
+                        <span class="badge bg-dark">{{ grade_distribution.F or 0 }}</span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div class="progress-bar bg-dark" style="width: {{ grade_distribution.F_percent or 0 }}%">
+                            {{ grade_distribution.F_percent or 0 }}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top Performers -->
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-warning">
+                <h5 class="mb-0">
+                    <i class="bi bi-trophy me-2"></i>
+                    Top Performing Students
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>Student</th>
+                                <th class="text-center">Average</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if top_students %}
+                                {% for student in top_students %}
+                                <tr>
+                                    <td>
+                                        {% if loop.index == 1 %}
+                                            <i class="bi bi-trophy-fill text-warning"></i>
+                                        {% elif loop.index == 2 %}
+                                            <i class="bi bi-trophy-fill text-secondary"></i>
+                                        {% elif loop.index == 3 %}
+                                            <i class="bi bi-trophy-fill" style="color: #cd7f32;"></i>
+                                        {% else %}
+                                            {{ loop.index }}
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ student.name }}</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-success">{{ student.average }}%</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">No data available</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="bi bi-star me-2"></i>
+                    Most Popular Courses
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Teacher</th>
+                                <th class="text-center">Enrollments</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if popular_courses %}
+                                {% for course in popular_courses %}
+                                <tr>
+                                    <td>{{ course.name }}</td>
+                                    <td>{{ course.teacher }}</td>
+                                    <td class="text-center">
+                                        <span class="badge bg-info">{{ course.enrollments }}</span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">No data available</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
