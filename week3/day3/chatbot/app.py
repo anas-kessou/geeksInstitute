@@ -1,11 +1,10 @@
-# app.py -- SIMPLE ethical-hacking chatbot backend (single file)
 import os
 import re
 from flask import Flask, request, jsonify
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()  # loads .env
+load_dotenv()  
 
 # Read from .env as requested
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
