@@ -1,6 +1,9 @@
-import ExercisesXP
+
 
 #Exercise 1 : Pets
+#==================================
+#***********************
+#==================================
 
 class Pets():
     def __init__(self, animals):
@@ -43,43 +46,6 @@ sara_pets.walk()
 #**********************
 #==================================
 
-# from ExercisesXP import Dog
-# import random
-# class PetDog(Dog):
-
-#     def __init__(self,name,age,weight):
-#         super().__init__(name,age,weight)
-#         self.trained=False
-    
-#     def train(self):
-#         print(self.bark())
-#         self.trained=True
-#     def play(self,*args):
-#         all_dogs= " ,".join([args.name for args in args])
-#         print(f"{all_dogs} all play together")
-    
-#     def do_a_trick(self):
-#         tricks=["does a barrel roll","stands on his back legs","plays dead"," shakes your hand"]
-#         if self.trained==True:
-#             print(f"{self.name} {random.choice(tricks)}") 
-
-# dog1 = PetDog("Rex", 3, 20)
-# dog2 = PetDog("Bella", 5, 15)
-# dog3 = PetDog("Max", 2, 25)
-
-# dog1.train()          
-# dog1.play(dog1, dog2, dog3)  
-# dog1.do_a_trick()     
-# dog2.do_a_trick()    
-
-#==================================
-#***********************
-#==================================
-
-
-
-
-
 
 class Dog:
     def __init__(self,name,age,weight):
@@ -105,11 +71,48 @@ dog2.run_speed()
 dog3.run_speed()
 dog2.fight(dog1)
 
+#Exercise 3 : Dogs Domesticated
+#================================
+#******************************
+#================================
 
+
+from ExercisesXP import Dog
+import random
+class PetDog(Dog):
+
+    def __init__(self,name,age,weight):
+        super().__init__(name,age,weight)
+        self.trained=False
+    
+    def train(self):
+        print(self.bark())
+        self.trained=True
+    def play(self,*args):
+        all_dogs= " ,".join([args.name for args in args])
+        print(f"{all_dogs} all play together")
+    
+    def do_a_trick(self):
+        tricks=["does a barrel roll","stands on his back legs","plays dead"," shakes your hand"]
+        if self.trained==True:
+            print(f"{self.name} {random.choice(tricks)}") 
+
+dog1 = PetDog("Rex", 3, 20)
+dog2 = PetDog("Bella", 5, 15)
+dog3 = PetDog("Max", 2, 25)
+
+dog1.train()          
+dog1.play(dog1, dog2, dog3)  
+dog1.do_a_trick()     
+dog2.do_a_trick()    
 
 
 
 #Exercise 4 : Family
+#==================================
+#***********************
+#==================================
+
 class Family:
     def __init__(self,members,last_name):
         self.members=members
@@ -146,36 +149,36 @@ print(a.is_18('John'))
 
 
 
-#Exercise 5 : TheIncredibles Family
-#=================================
-#*************************
-#================================
+# Exercise 5 : TheIncredibles Family
+# =================================
+# *************************
+# ================================
 
-# class TheIncredibles(Family):
-#     def use_power(self, name):
-#         for member in self.members:
-#             if member['name'] == name:
-#                 if self.is_18(name):
-#                     print(f"{name}'s power: {member['power']}")
-#                 else:
-#                     print(f"{name} is not over 18 years old and cannot use their power!")
-#                 return
-#         print(f"No member named {name} found.")
+class TheIncredibles(Family):
+    def use_power(self, name):
+        for member in self.members:
+            if member['name'] == name:
+                if self.is_18(name):
+                    print(f"{name}'s power: {member['power']}")
+                else:
+                    print(f"{name} is not over 18 years old and cannot use their power!")
+                return
+        print(f"No member named {name} found.")
 
-#     def incredible_presentation(self):
-#         print("\n*Here is our powerful family*")
-#         super().family_presentation()
-# members = [
-#     {'name':'Michael','age':35,'gender':'Male','is_child':False,'power': 'fly','incredible_name':'MikeFly'},
-#     {'name':'Sarah','age':32,'gender':'Female','is_child':False,'power': 'read minds','incredible_name':'SuperWoman'}
-# ]
+    def incredible_presentation(self):
+        print("\n*Here is our powerful family*")
+        super().family_presentation()
+members = [
+    {'name':'Michael','age':35,'gender':'Male','is_child':False,'power': 'fly','incredible_name':'MikeFly'},
+    {'name':'Sarah','age':32,'gender':'Female','is_child':False,'power': 'read minds','incredible_name':'SuperWoman'}
+]
 
-# the_incredibles = TheIncredibles(last_name="Incredibles", members=members)
-# the_incredibles.incredible_presentation()
-# the_incredibles.born(name="Baby Jack", age=0, gender="Male", is_child=True, power="Unknown Power", incredible_name="BabyJack")
-# the_incredibles.incredible_presentation()
-# the_incredibles.use_power("Michael")  
-# the_incredibles.use_power("Baby Jack") 
-#================================
-#*************************
-#================================
+the_incredibles = TheIncredibles(last_name="Incredibles", members=members)
+the_incredibles.incredible_presentation()
+the_incredibles.born(name="Baby Jack", age=0, gender="Male", is_child=True, power="Unknown Power", incredible_name="BabyJack")
+the_incredibles.incredible_presentation()
+the_incredibles.use_power("Michael")  
+the_incredibles.use_power("Baby Jack") 
+# ================================
+# *************************
+# ================================
