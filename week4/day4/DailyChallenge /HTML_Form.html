@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML form</title>
+</head>
+<body>
+    <form id="userForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastname" name="lastName" required>
+        
+        <button type="submit">Sent</button>
+        <p id="output"></p>
+    </form>
+    <script>
+        const form = document.getElementById("userForm");
+        const output = document.getElementById("output");
+
+        form.addEventListener("submit" , (e)=>{
+            e.preventDefault();
+            const name= document.getElementById("name").value;
+            const lastname = document.getElementById("lastname").value;
+
+            const jsonData= {
+                name: name,
+                lastname: lastname
+            }
+            output.textContent= JSON.stringify(jsonData);
+        }
+    );
+
+    </script>
+
+</body>
+</html>
