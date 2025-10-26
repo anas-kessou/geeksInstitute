@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gifs</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            background-color:#f7f7f7;
+        }
+        form{
+            margin-bottom: 20px;
+        }
+        input{
+            padding: 8px 15px;
+            width: 200px;
+        }
+        button{
+            padding: 8px 15px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+       
+    </style>
+</head>
+<body>
+    <h1>Random Gifs</h1>
+    <form id="formGif">
+        <input id="searchInput" type="text">
+        <button id="Submit">Get The Gif</button>
+    </form>
+
+    <button id="deleteAll">DELETE ALL</button>
+
+    <div id="gifContainer" class="gif-container"></div>
+
+    <script src="Gifs.js"></script>
+    
+</body>
+</html>
