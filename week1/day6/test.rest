@@ -1,0 +1,38 @@
+
+
+
+# test my api
+
+
+##### home page
+GET http://127.0.0.1:7400
+
+##### get all students
+GET http://127.0.0.1:7400/students
+
+##### get student by id
+GET http://127.0.0.1:7400/students/1
+
+##### add a new student
+POST http://127.0.0.1:7400/students
+Content-Type: application/json
+
+{
+    "id": 22,
+    "name": "Jake Doe",
+    "email": "jake.doe@example.com",
+    "age": 25,
+    "gender": "male"
+}
+
+##### get student by id to verify addition
+GET http://127.0.0.1:7400/students/22
+
+##### update student by id
+PUT http://127.0.0.1:7400/students/22
+Content-Type: application/json
+
+{
+    "age": 26,
+    "name": "anas kessou"
+}

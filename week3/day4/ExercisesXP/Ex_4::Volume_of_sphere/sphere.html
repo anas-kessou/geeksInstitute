@@ -1,0 +1,76 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <meta charset="utf-8"> 
+    <title>Volume of a Sphere</title> 
+    <style>  
+        body {
+            padding-top: 30px;
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: auto;
+        } 
+
+        label, input {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+        }  
+
+        input[type="text"] {
+            padding: 5px;
+        }
+
+        input[type="submit"] {
+            padding: 8px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style> 
+</head> 
+<body> 
+    <p>Input radius value and get the volume of a sphere.</p> 
+    <form id="MyForm"> 
+        <label for="radius">Radius</label>
+        <input type="text" name="radius" id="radius" required> 
+
+        <label for="volume">Volume</label>
+        <input type="text" name="volume" id="volume" readonly> 
+
+        <input type="submit" value="Calculate" id="submit">    
+    </form> 
+
+    <script>
+        // Get the form element
+        const form = document.getElementById("MyForm");
+
+        // Listen for submit event
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); // prevent page reload
+
+            const radiusInput = document.getElementById("radius");
+            const volumeInput = document.getElementById("volume");
+
+            const radius = parseFloat(radiusInput.value);
+
+            // Check if input is a valid number and positive
+            if (isNaN(radius) || radius <= 0) {
+                alert("Please enter a valid positive number for the radius.");
+                return;
+            }
+
+            // Calculate volume of sphere: (4/3) * π * r³
+            const volume = (4 / 3) * Math.PI * Math.pow(radius, 3);
+
+            // Round to 4 decimal places and display
+            volumeInput.value = volume.toFixed(4);
+        });
+    </script>
+</body> 
+</html>
