@@ -24,12 +24,27 @@ const gameInfo = [
       items: ["book", "pen"]
     },
    ];
-   
-const usernames = gameInfo.forEach(game => game.username+"!");
-console.log(usernames);
 
-const winners = gameInfo.forEach(game => game.score>5 ? game.username: "");
-console.log(winners);
+
+const usernames = [];
+gameInfo.forEach(player => {
+  usernames.push(player.username + "!");
+});
+
+console.log("Usernames:", usernames);
+
+
+const winners = [];
+gameInfo.forEach(player => {
+  if (player.score > 5) {
+    winners.push(player.username);
+  }
+});
+
+console.log("Winners:", winners);
+
+
+
 
 const totalScore = gameInfo.reduce((acc, game) => acc + game.score , 0);
 console.log(totalScore);
